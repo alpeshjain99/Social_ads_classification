@@ -1,0 +1,713 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'Consolas'; font-size:10pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Python 3.7.5 (default, Oct 31 2019, 15:18:51) [MSC v.1916 64 bit (AMD64)]</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Type &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">IPython 7.10.2 -- An enhanced Interactive Python.</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />Restarting kernel... </p>
+<hr />
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /> </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">1</span><span style=" color:#00ff00;">]:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> import numpy as np</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> import matplotlib.pyplot as plt</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> import pandas as pd</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> import random</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> # Step 2.  Importing the dataset Files..</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> dataset = pd.read_csv('Ads_CTR_Optimisation.csv')</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> # Step 3.  Thompson Sampling Algorithm</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> N = 10000</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> d= 10</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> ads_selected = []</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> no_of_rewards_1 = [0]*d</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> no_of_rewards_0 = [0]*d</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> total_reward = 0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> for n in range(N):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span>     ad = 0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span>     max_random = 0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span>     for i in range(d):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span>         random_beta = random.betavariate(no_of_rewards_1[i]+1,no_of_rewards_0[i]+1)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span>         if random_beta&gt;max_random:</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span>             max_random = random_beta</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span>             ad = i</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span>     ads_selected.append(ad)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span>     reward = dataset.values[n,ad]</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span>     if(reward == 1):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span>         no_of_rewards_1[ad]+=1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span>     else:</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span>         no_of_rewards_0[ad]+=1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span>     total_reward = total_reward + reward</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> for i in range(len(ads_selected)-9599):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span>     print(&quot;User&quot;,i,&quot;Selectd Ad no &quot;,ads_selected[i])</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> print('These are about 400 entries');</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> print(&quot;Note: Must see the corpus Variable. It is a list variable can't be seen fully on dashboard as it contains about 10000(10K) Entries&quot;)    </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> print('Total no of rewards',total_reward)   </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> # Step 4.  Visualizing the Results</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> plt.hist(ads_selected)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> plt.title('Histogram of Ads Selections')</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> plt.xlabel('Ads')</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> plt.ylabel('No of time each  Ad selected')</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">   ...:</span> plt.show();</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 0 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 1 Selectd Ad no  2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 2 Selectd Ad no  6</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 3 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 4 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 5 Selectd Ad no  8</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 6 Selectd Ad no  9</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 7 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 8 Selectd Ad no  3</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 9 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 10 Selectd Ad no  3</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 11 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 12 Selectd Ad no  5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 13 Selectd Ad no  0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 14 Selectd Ad no  6</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 15 Selectd Ad no  3</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 16 Selectd Ad no  2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 17 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 18 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 19 Selectd Ad no  9</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 20 Selectd Ad no  5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 21 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 22 Selectd Ad no  3</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 23 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 24 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 25 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 26 Selectd Ad no  0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 27 Selectd Ad no  8</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 28 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 29 Selectd Ad no  8</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 30 Selectd Ad no  9</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 31 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 32 Selectd Ad no  8</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 33 Selectd Ad no  5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 34 Selectd Ad no  0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 35 Selectd Ad no  8</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 36 Selectd Ad no  8</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 37 Selectd Ad no  8</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 38 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 39 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 40 Selectd Ad no  6</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 41 Selectd Ad no  5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 42 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 43 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 44 Selectd Ad no  5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 45 Selectd Ad no  3</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 46 Selectd Ad no  6</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 47 Selectd Ad no  2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 48 Selectd Ad no  0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 49 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 50 Selectd Ad no  2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 51 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 52 Selectd Ad no  8</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 53 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 54 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 55 Selectd Ad no  9</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 56 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 57 Selectd Ad no  8</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 58 Selectd Ad no  6</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 59 Selectd Ad no  8</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 60 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 61 Selectd Ad no  0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 62 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 63 Selectd Ad no  5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 64 Selectd Ad no  3</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 65 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 66 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 67 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 68 Selectd Ad no  0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 69 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 70 Selectd Ad no  2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 71 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 72 Selectd Ad no  2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 73 Selectd Ad no  8</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 74 Selectd Ad no  0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 75 Selectd Ad no  2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 76 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 77 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 78 Selectd Ad no  6</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 79 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 80 Selectd Ad no  3</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 81 Selectd Ad no  3</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 82 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 83 Selectd Ad no  8</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 84 Selectd Ad no  0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 85 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 86 Selectd Ad no  9</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 87 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 88 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 89 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 90 Selectd Ad no  9</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 91 Selectd Ad no  6</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 92 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 93 Selectd Ad no  3</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 94 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 95 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 96 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 97 Selectd Ad no  0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 98 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 99 Selectd Ad no  5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 100 Selectd Ad no  0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 101 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 102 Selectd Ad no  5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 103 Selectd Ad no  9</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 104 Selectd Ad no  9</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 105 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 106 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 107 Selectd Ad no  9</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 108 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 109 Selectd Ad no  9</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 110 Selectd Ad no  8</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 111 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 112 Selectd Ad no  8</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 113 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 114 Selectd Ad no  9</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 115 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 116 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 117 Selectd Ad no  8</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 118 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 119 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 120 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 121 Selectd Ad no  6</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 122 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 123 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 124 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 125 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 126 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 127 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 128 Selectd Ad no  9</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 129 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 130 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 131 Selectd Ad no  5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 132 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 133 Selectd Ad no  6</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 134 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 135 Selectd Ad no  2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 136 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 137 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 138 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 139 Selectd Ad no  6</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 140 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 141 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 142 Selectd Ad no  8</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 143 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 144 Selectd Ad no  8</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 145 Selectd Ad no  6</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 146 Selectd Ad no  6</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 147 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 148 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 149 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 150 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 151 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 152 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 153 Selectd Ad no  6</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 154 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 155 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 156 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 157 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 158 Selectd Ad no  2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 159 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 160 Selectd Ad no  9</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 161 Selectd Ad no  2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 162 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 163 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 164 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 165 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 166 Selectd Ad no  2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 167 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 168 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 169 Selectd Ad no  9</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 170 Selectd Ad no  6</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 171 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 172 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 173 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 174 Selectd Ad no  6</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 175 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 176 Selectd Ad no  2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 177 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 178 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 179 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 180 Selectd Ad no  5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 181 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 182 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 183 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 184 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 185 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 186 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 187 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 188 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 189 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 190 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 191 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 192 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 193 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 194 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 195 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 196 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 197 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 198 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 199 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 200 Selectd Ad no  5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 201 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 202 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 203 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 204 Selectd Ad no  0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 205 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 206 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 207 Selectd Ad no  8</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 208 Selectd Ad no  2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 209 Selectd Ad no  2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 210 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 211 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 212 Selectd Ad no  9</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 213 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 214 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 215 Selectd Ad no  2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 216 Selectd Ad no  9</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 217 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 218 Selectd Ad no  5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 219 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 220 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 221 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 222 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 223 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 224 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 225 Selectd Ad no  0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 226 Selectd Ad no  2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 227 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 228 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 229 Selectd Ad no  2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 230 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 231 Selectd Ad no  9</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 232 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 233 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 234 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 235 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 236 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 237 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 238 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 239 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 240 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 241 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 242 Selectd Ad no  3</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 243 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 244 Selectd Ad no  6</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 245 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 246 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 247 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 248 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 249 Selectd Ad no  2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 250 Selectd Ad no  2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 251 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 252 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 253 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 254 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 255 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 256 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 257 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 258 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 259 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 260 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 261 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 262 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 263 Selectd Ad no  2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 264 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 265 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 266 Selectd Ad no  2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 267 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 268 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 269 Selectd Ad no  0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 270 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 271 Selectd Ad no  9</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 272 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 273 Selectd Ad no  3</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 274 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 275 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 276 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 277 Selectd Ad no  5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 278 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 279 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 280 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 281 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 282 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 283 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 284 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 285 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 286 Selectd Ad no  6</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 287 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 288 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 289 Selectd Ad no  0</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 290 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 291 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 292 Selectd Ad no  3</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 293 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 294 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 295 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 296 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 297 Selectd Ad no  6</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 298 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 299 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 300 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 301 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 302 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 303 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 304 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 305 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 306 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 307 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 308 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 309 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 310 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 311 Selectd Ad no  2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 312 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 313 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 314 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 315 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 316 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 317 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 318 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 319 Selectd Ad no  5</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 320 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 321 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 322 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 323 Selectd Ad no  3</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 324 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 325 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 326 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 327 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 328 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 329 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 330 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 331 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 332 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 333 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 334 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 335 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 336 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 337 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 338 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 339 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 340 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 341 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 342 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 343 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 344 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 345 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 346 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 347 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 348 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 349 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 350 Selectd Ad no  6</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 351 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 352 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 353 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 354 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 355 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 356 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 357 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 358 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 359 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 360 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 361 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 362 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 363 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 364 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 365 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 366 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 367 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 368 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 369 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 370 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 371 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 372 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 373 Selectd Ad no  7</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 374 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 375 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 376 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 377 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 378 Selectd Ad no  6</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 379 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 380 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 381 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 382 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 383 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 384 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 385 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 386 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 387 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 388 Selectd Ad no  9</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 389 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 390 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 391 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 392 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 393 Selectd Ad no  1</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 394 Selectd Ad no  2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 395 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 396 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 397 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 398 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 399 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">User 400 Selectd Ad no  4</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">These are about 400 entries</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Note: Must see the corpus Variable. It is a list variable can't be seen fully on dashboard as it contains about 10000(10K) Entries</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Total no of rewards 2625</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="data:image/png;base64,
+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
+m5mZGXr27Nlk//u3A8ClS5cwduxYODg4QK1WY9GiRbh582aTz9jb20v/3aNH
+jweWKyoqHrrW1khISEB4eDiUSiW6deuG8ePHS5eifvldFQpFk+XVq1dDCIEh
+Q4bAx8cHn332md7jvPLKK9izZw9u376NlJQUbN68GX//+99RXFyMqqoq+Pv7
+w8rKClZWVhg1ahSKi4sfaOPatWsoKiqSPmdlZYUVK1ZI37WgoKDFy2363Pue
+nTr956enb9++0Gq10rKDg4P032ZmZtLfR2BgIN566y3MmjUL9vb2iImJQVlZ
+2UPXQI+GYUFtzsPDA9u3b8eNGzewYMEChIWFobKyEgqF4oHPOjk54dq1a9Ly
+jz/+CKVSCXt7ezg6OqKwsFDaVl1djVu3bjXZ/5dtzpgxA56ensjNzUVZWRlW
+rFjR5Nr/r9FSrXIKCwtx9OhRbN26FQ4ODnBwcEBSUhL279+PmzdvwtHREQUF
+BdLnhRBNlh0cHLBx40YUFRXhb3/7G2bOnNnkiaPmdOrUCUFBQQgMDERWVhZs
+bW3Ro0cPXLhwQQr9O3fuNBuOLi4ucHNza/IPhPLycuzfv1/afu9ewsNwcnJC
+QUEBGhsbpXU//vgjevfu3ar93377bfzrX//ChQsXcOnSJfzlL3956Bro0TAs
+qM1t3boVxcXF6NSpE6ysrAAAnTt3hp2dHTp16oSrV69Kn3399dexdu1a5OXl
+oaKiAosWLcKECROgVCoRFhaGPXv24OTJk6irq8P7778v+8NfXl4OtVoNCwsL
+5OTk4H/+53/a7Hu1VKuczz//HE8//TQuXryIc+fO4dy5c7h06RKcnZ2xfft2
+jBkzBhcuXMCuXbvQ0NCA9evX46effpL237lzpxSc1tbWUCgU6Ny58wPHSUlJ
+QWJiIkpKSiCEwNmzZ/H1119j6NCh6NSpE6KjozF37lzcuHEDAKDVanHw4MEH
+2hkyZAjUajVWrVqF6upq6HQ6ZGVlSU9wTZ8+HUuWLEFubi6EEDh//rwU5Pb2
+9k3+ju8XEBAAc3NzrF69GvX19Th27Bj27NmDiIgI2XP43Xff4cyZM6ivr4e5
+uTm6d+/e7Dkgw2BYUJtLS0uDj48PLCwsMGfOHCQmJqJ79+4wMzPD4sWL8dxz
+z8HKygqnT5/GG2+8gcmTJ+PFF1+Em5sbunfvjk8++QTA3YF+n3zyCSIiIuDo
+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
+/ClEAAAAAElFTkSuQmCC
+" /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00ff00;">In [</span><span style=" font-weight:600; color:#00ff00;">2</span><span style=" color:#00ff00;">]:</span> </p></body></html>
